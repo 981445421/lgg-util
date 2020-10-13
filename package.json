@@ -1,0 +1,20 @@
+{
+  "name": "lgg-util",
+  "version": "0.0.1",
+  "description": "js工具库",
+  "main": "index.js",
+  "scripts": {
+    "build": "node webpack/build.js"
+  },
+  "author": "liZhanWei",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "progress-bar-webpack-plugin": "^2.1.0",
+    "ts-loader": "^8.0.4",
+    "typescript": "^4.0.3",
+    "webpack": "^5.0.0"
+  }
+}
