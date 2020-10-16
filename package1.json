@@ -1,0 +1,8 @@
+{
+  "name": "lgg-util",
+  "version": "0.0.1",
+  "description": "js工具库",
+  "main": "index.js",
+  "author": "liZhanWei",
+  "license": "ISC"
+}

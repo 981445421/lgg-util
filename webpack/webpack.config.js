@@ -1,8 +1,8 @@
 const path = require("path");
+const CopyPlugin = require('copy-webpack-plugin');
 const pathIndex = path.resolve(__dirname, '../src/index');
-const pathOut = path.resolve(__dirname, '../dist')
+const pathOut = path.resolve(__dirname, '../lgg-util')
 const progressBar = require("progress-bar-webpack-plugin");
-console.log(pathIndex);
 module.exports = function (mode) {
     return {
         entry: pathIndex,
@@ -36,7 +36,15 @@ module.exports = function (mode) {
             ],
         },
         plugins: [
-            progressBar()
+            progressBar(),
+            new CopyPlugin({
+                patterns: [
+                    { from: 'package1.json', to: 'package.json' },
+                ],
+                options: {
+                    concurrency: 100,
+                },
+            }),
         ]
     };
 }
