@@ -3,6 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const pathIndex = path.resolve(__dirname, '../src/index');
 const pathOut = path.resolve(__dirname, '../lgg-util')
 const progressBar = require("progress-bar-webpack-plugin");
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 module.exports = function (mode) {
     return {
         entry: pathIndex,
@@ -45,6 +46,7 @@ module.exports = function (mode) {
                     concurrency: 100,
                 },
             }),
+            new CleanWebpackPlugin()
         ]
     };
 }
