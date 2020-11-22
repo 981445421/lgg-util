@@ -1,6 +1,6 @@
 const path = require("path");
 const CopyPlugin = require('copy-webpack-plugin');
-const pathIndex = path.resolve(__dirname, '../src/index');
+const pathIndex = path.resolve(__dirname, '../src/index.ts');
 const pathOut = path.resolve(__dirname, '../lgg-util')
 const progressBar = require("progress-bar-webpack-plugin");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
@@ -22,17 +22,33 @@ module.exports = function (mode) {
             rules: [
                 {
                     test: /\.ts$/,
-                    use: 'ts-loader'
-                },
+                    exclude: /node_modules/,
+                    use: [
+                        {
+                            loader: 'babel-loader',
+                            options: {
+                                presets: [['@babel/preset-env', {targets: "> 0.25%"}]],
+                                plugins: ["@babel/plugin-transform-arrow-functions"],
+                            }
+                        },
+                        {
+                            loader: 'ts-loader'
+                        }
+                    ]
+                }
+                ,
                 {
                     test: /\.js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env']
+                    exclude: /node_modules/,
+                    use: [
+                        {
+                            loader: 'babel-loader',
+                            options: {
+                                presets: [['@babel/preset-env', {targets: "> 0.25%"}]],
+                                plugins: ["@babel/plugin-transform-arrow-functions"],
+                            }
                         }
-                    }
+                    ]
                 }
             ],
         },
@@ -40,7 +56,7 @@ module.exports = function (mode) {
             progressBar(),
             new CopyPlugin({
                 patterns: [
-                    { from: 'package1.json', to: 'package.json' },
+                    {from: 'package1.json', to: 'package.json'},
                 ],
                 options: {
                     concurrency: 100,

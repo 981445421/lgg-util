@@ -3,13 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="../dist/index.js"></script>
+    <style>
+        .box {
+            margin-top: 20px;
+            border: 1px solid #000;
+        }
+
+        .box-item {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="../lgg-util/index.js"></script>
 </head>
 <body>
-
+<div class="box">
+    五日均线:
+    <div class="box-item">
+        <span>1：</span>
+        <input type="text" id="j1">
+    </div>
+    <div class="box-item">
+        <span>2：</span>
+        <input type="text" id="j2">
+    </div>
+    <div class="box-item">
+        <span>3：</span>
+        <input type="text" id="j3">
+    </div>
+    <div class="box-item">
+        <span>4：</span>
+        <input type="text" id="j4">
+    </div>
+    <div class="box-item">
+        <span>5：</span>
+        <input type="text" id="j5">
+    </div>
+    <div class="box-item">
+        <span>6：</span>
+        <span id="j6"></span>
+        <button onclick="jFn()">计算第五日均线位置</button>
+    </div>
+</div>
+<div class="box">
+    求涨幅，跌幅
+    <div class="box-item">
+        <span>基础值：</span>
+        <input type="text" id="r1">
+    </div>
+    <div class="box-item">
+        <span>涨幅/跌幅：</span>
+        <input type="text" id="r2">
+        <span>%</span>
+    </div>
+    <div class="box-item">
+        <span>结果：</span>
+        <input type="text" id="r3">
+        <button onclick="rFn()">计算</button>
+        <button onclick="rxFn()">计算百分比</button>
+    </div>
+</div>
 </body>
 </html>
 <script>
+    const j1 = document.getElementById("j1");
+    const j2 = document.getElementById("j2");
+    const j3 = document.getElementById("j3");
+    const j4 = document.getElementById("j4");
+    const j5 = document.getElementById("j5");
+    const j6 = document.getElementById("j6");
+    const r1 = document.getElementById("r1");
+    const r2 = document.getElementById("r2");
+    const r3 = document.getElementById("r3");
+    console.log(lggComputed.operation);
 
-    console.log(lggGetId());
+    function jFn() {
+        j6.innerText = lggComputed.operation(Number(j1.value), "+", Number(j2.value)).add(Number(j3.value), Number(j4.value), Number(j5.value)).divide(5).result(2);
+    }
+
+    function rFn() {
+        r3.value = new lggComputed(Number(r1.value)).divide(100).multiply(Number(r2.value)).add(Number(r1.value)).result(2)
+    }
+    function rxFn(){
+        r2.value = new lggComputed(Number(r3.value)).subtract(Number(r1.value)).divide(Number(r1.value)).multiply(100).result(2)
+    }
 </script>
