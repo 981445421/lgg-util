@@ -146,11 +146,14 @@ export default class Computed {
         return flag;
     }
 
-    result(accuracy?: number) {
+    result(accuracy?: number):string {
         if (accuracy) {
-            return Number(this.#value.toFixed(accuracy));
-        } else {
-            return this.#value;
+            if (this.getAccuracy(this.#value) < accuracy) {
+                return Number(this.precision(this.#value, accuracy)).toFixed(accuracy)
+            }
+            console.log(this.#value.toFixed(accuracy));
+            return this.#value.toFixed(accuracy);
         }
+        return String(this.#value);
     }
 }

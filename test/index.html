@@ -5,61 +5,70 @@
     <title>Title</title>
     <style>
         .box {
-            margin-top: 20px;
+            padding: 20px;
+            box-sizing: border-box;
             border: 1px solid #000;
+            font-size: 40px;
         }
 
         .box-item {
-            margin-top: 10px;
+            padding-top: 30px;
+            box-sizing: border-box;
+        }
+
+        .box-item-input {
+            font-size: 40px;
+            height: 60px;
+            border: 1px solid #ccc;
         }
     </style>
     <script src="../lgg-util/index.js"></script>
 </head>
-<body>
+<body style="width: 100%;">
 <div class="box">
     五日均线:
     <div class="box-item">
         <span>1：</span>
-        <input type="text" id="j1">
+        <input type="text" id="j1" class="box-item-input">
     </div>
     <div class="box-item">
         <span>2：</span>
-        <input type="text" id="j2">
+        <input type="text" id="j2" class="box-item-input">
     </div>
     <div class="box-item">
         <span>3：</span>
-        <input type="text" id="j3">
+        <input type="text" id="j3" class="box-item-input">
     </div>
     <div class="box-item">
         <span>4：</span>
-        <input type="text" id="j4">
+        <input type="text" id="j4" class="box-item-input">
     </div>
     <div class="box-item">
         <span>5：</span>
-        <input type="text" id="j5">
+        <input type="text" id="j5" class="box-item-input">
     </div>
     <div class="box-item">
         <span>6：</span>
         <span id="j6"></span>
-        <button onclick="jFn()">计算第五日均线位置</button>
+        <button onclick="jFn()" class="box-item-input">计算第五日均线位置</button>
     </div>
 </div>
 <div class="box">
     求涨幅，跌幅
     <div class="box-item">
         <span>基础值：</span>
-        <input type="text" id="r1">
+        <input type="text" id="r1" class="box-item-input">
     </div>
     <div class="box-item">
         <span>涨幅/跌幅：</span>
-        <input type="text" id="r2">
+        <input type="text" id="r2" class="box-item-input">
         <span>%</span>
     </div>
     <div class="box-item">
         <span>结果：</span>
-        <input type="text" id="r3">
-        <button onclick="rFn()">计算</button>
-        <button onclick="rxFn()">计算百分比</button>
+        <input type="text" id="r3" class="box-item-input">
+        <button onclick="rFn()" class="box-item-input">计算</button>
+        <button onclick="rxFn()" class="box-item-input">计算百分比</button>
     </div>
 </div>
 </body>
@@ -81,9 +90,11 @@
     }
 
     function rFn() {
-        r3.value = new lggComputed(Number(r1.value)).divide(100).multiply(Number(r2.value)).add(Number(r1.value)).result(2)
+        // 涨幅=（现在值-昨天值）/昨天值*100
+        r3.value = new lggComputed(Number(r2.value)).divide(100).multiply(Number(r1.value)).add(Number(r1.value)).result(2)
     }
-    function rxFn(){
+
+    function rxFn() {
         r2.value = new lggComputed(Number(r3.value)).subtract(Number(r1.value)).divide(Number(r1.value)).multiply(100).result(2)
     }
 </script>
